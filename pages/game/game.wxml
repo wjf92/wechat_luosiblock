@@ -1,0 +1,67 @@
+<!-- pages/game/game.wxml -->
+<view class="container">
+  <view class="header">
+    <view class="stat">
+      <text class="label">分数</text>
+      <text class="value">{{score}}</text>
+    </view>
+    <view class="stat">
+      <text class="label">消除</text>
+      <text class="value">{{lines}}</text>
+    </view>
+    <view class="stat">
+      <text class="label">等级</text>
+      <text class="value">{{level}}</text>
+    </view>
+    <view class="stat">
+      <text class="label">最高</text>
+      <text class="value hi">{{highScore}}</text>
+    </view>
+  </view>
+
+  <view class="game-area">
+    <canvas
+      type="2d"
+      id="gameCanvas"
+      class="game-canvas"
+      style="width:{{canvasW}}px;height:{{canvasH}}px"
+      bindtouchstart="onTouchStart"
+      bindtouchend="onTouchEnd"
+    ></canvas>
+    <view class="side">
+      <text class="next-label">下一个</text>
+      <canvas
+        type="2d"
+        id="nextCanvas"
+        class="next-canvas"
+        style="width:{{nextW}}px;height:{{nextH}}px"
+      ></canvas>
+      <view class="tip">滑动：← → 移动\n↓ 硬降 · 轻点 旋转</view>
+    </view>
+  </view>
+
+  <view class="controls">
+    <view class="btn-row">
+      <view class="btn" bindtap="onLeft">←</view>
+      <view class="btn" bindtap="onRotate">↻</view>
+      <view class="btn" bindtap="onRight">→</view>
+    </view>
+    <view class="btn-row">
+      <view class="btn" bindtap="onDown">↓</view>
+      <view class="btn drop" bindtap="onDrop">⤓</view>
+    </view>
+    <view class="btn-row">
+      <view class="btn wide" bindtap="onPause">{{paused ? '继续' : '暂停'}}</view>
+      <view class="btn wide" bindtap="onRestart">重开</view>
+    </view>
+  </view>
+
+  <view wx:if="{{gameOver}}" class="overlay">
+    <view class="overlay-box">
+      <text class="over-title">游戏结束</text>
+      <text class="over-score">本局得分 {{score}}</text>
+      <text class="over-best">历史最高 {{highScore}}</text>
+      <view class="btn restart-btn" bindtap="onRestart">再来一局</view>
+    </view>
+  </view>
+</view>
